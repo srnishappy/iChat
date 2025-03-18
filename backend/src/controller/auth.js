@@ -1,6 +1,7 @@
 import { generateToken } from '../lib/utils.js';
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
+import cloudinary from '../lib/cloudinary.js';
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -42,9 +43,69 @@ export const signup = async (req, res) => {
     return res.status(500).json({ msg: 'Something went wrong' });
   }
 };
-export const login = (req, res) => {
-  res.send('login');
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+    generateToken(user._id, res);
+    return res.status(200).json({
+      msg: 'Login successful',
+      _id: user._id,
+      fullname: user.fullname,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+  } catch (err) {
+    console.log('Error Login', err);
+    res.status(500).json({ msg: 'Something went wrong' });
+  }
 };
+
 export const logout = (req, res) => {
-  res.send('logout');
+  try {
+    res.cookie('jwt', '', { maxAge: 0 });
+    return res.status(200).json({ msg: 'Logout successful' });
+  } catch (err) {
+    console.log('Error Logout', err);
+    res.status(500).json({ msg: 'Something went wrong' });
+  }
+};
+export const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    const userId = req.user._id;
+    if (!profilePic) {
+      return res.status(400).json({ msg: 'Profile picture is required' });
+    }
+    const uploadRes = await cloudinary.uploader(profilePic);
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        profilePic: uploadRes.secure_url,
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      msg: 'Profile updated successfully',
+      updateUser,
+    });
+  } catch (err) {
+    console.log('Error Update Profile', err);
+    res.status(500).json({ msg: 'Something went wrong' });
+  }
+};
+export const checkAuth = async (req, res) => {
+  try {
+    res.status(200).json(req.user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: 'Something went wrong' });
+  }
 };
