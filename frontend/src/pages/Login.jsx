@@ -37,7 +37,7 @@ const Login = () => {
                 <MessageSquare className="w-6 h-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Welcome to Chatify </h1>
-              <p className="text-base-content/60">Login and Start Chatting</p>
+              <p className="text-base-content/60">Login and let's chat!</p>
             </div>
           </div>
 
@@ -127,14 +127,19 @@ const Login = () => {
           {/* Illustration or App Preview */}
           <div className="bg-base-100 rounded-2xl shadow-xl p-4 max-w-sm mx-auto">
             <div className="flex flex-col space-y-4">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                  <MessageSquare className="size-5 text-primary" />
+              {/* User's Chat */}
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <img
+                    src="https://th.bing.com/th/id/R.6b0022312d41080436c52da571d5c697?rik=CWihwAiT6S2emg&pid=ImgRaw&r=0"
+                    alt="User"
+                    className="w-10 h-10 rounded-full"
+                  />
                 </div>
-                <div className="font-medium">Chatify</div>
+                <div className="font-medium">srnishappy</div>
               </div>
 
-              {/* Sample chat bubbles */}
+              {/* Chat bubbles with some interactivity */}
               <div className="flex flex-col space-y-3">
                 <div className="chat chat-start">
                   <div className="chat-bubble bg-base-200">
@@ -148,8 +153,7 @@ const Login = () => {
                 </div>
                 <div className="chat chat-start">
                   <div className="chat-bubble bg-base-200">
-                    It's awesome, right? So easy to use and beautifully
-                    designed!
+                    It's awesome, right? So easy to use and very well designed!
                   </div>
                 </div>
               </div>
@@ -161,6 +165,7 @@ const Login = () => {
             <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
 
             <div className="grid grid-cols-1 gap-4">
+              {/* User-Friendly Experience */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <User className="size-5 text-primary" />
@@ -168,11 +173,12 @@ const Login = () => {
                 <div className="text-left">
                   <h3 className="font-medium">User-Friendly Experience</h3>
                   <p className="text-sm text-base-content/70">
-                    Intuitive interface designed for smooth conversations
+                    Intuitive interface designed for smooth conversations.
                   </p>
                 </div>
               </div>
 
+              {/* Secure Messaging */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <Lock className="size-5 text-primary" />
@@ -180,11 +186,12 @@ const Login = () => {
                 <div className="text-left">
                   <h3 className="font-medium">Secure Messaging</h3>
                   <p className="text-sm text-base-content/70">
-                    End-to-end encryption keeps your chats private
+                    End-to-end encryption keeps your chats private.
                   </p>
                 </div>
               </div>
 
+              {/* Lightning Fast */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <div className="size-5 text-primary flex items-center justify-center font-bold">
@@ -194,7 +201,7 @@ const Login = () => {
                 <div className="text-left">
                   <h3 className="font-medium">Lightning Fast</h3>
                   <p className="text-sm text-base-content/70">
-                    Instant message delivery and syncing across devices
+                    Instant message delivery and syncing across devices.
                   </p>
                 </div>
               </div>

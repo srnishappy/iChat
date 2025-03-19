@@ -81,24 +81,22 @@ export const updateProfile = async (req, res) => {
   try {
     const { profilePic } = req.body;
     const userId = req.user._id;
+
     if (!profilePic) {
-      return res.status(400).json({ msg: 'Profile picture is required' });
+      return res.status(400).json({ message: 'Profile pic is required' });
     }
-    const uploadRes = await cloudinary.uploader(profilePic);
-    const updateUser = await User.findByIdAndUpdate(
+
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
-      {
-        profilePic: uploadRes.secure_url,
-      },
+      { profilePic: uploadResponse.secure_url },
       { new: true }
     );
-    res.status(200).json({
-      msg: 'Profile updated successfully',
-      updateUser,
-    });
-  } catch (err) {
-    console.log('Error Update Profile', err);
-    res.status(500).json({ msg: 'Something went wrong' });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log('error in update profile:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 export const checkAuth = async (req, res) => {
