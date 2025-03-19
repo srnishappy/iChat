@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { axiosInstance } from '../lib/axios';
 import { toast } from 'react-toastify';
-import { CheckCircle } from 'react-toastify';
 export const useAuthStore = create((set) => ({
   authUser: null,
   isSigninUp: false,
@@ -32,13 +31,42 @@ export const useAuthStore = create((set) => ({
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <CheckCircle className="text-success" />,
       });
+
       set({ authUser: res.data });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.msg);
     } finally {
       set({ isSigninUp: false });
+    }
+  },
+  logout: async () => {
+    try {
+      await axiosInstance.post('/auth/logout');
+      set({ authUser: null });
+      toast.success('Logout successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  },
+  login: async (data) => {
+    try {
+      const res = await axiosInstance.post('/auth/login', data);
+      set({ authUser: res.data });
+      toast.success('Login successfully!');
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    } finally {
+      set({ isLogin: false });
     }
   },
 }));
