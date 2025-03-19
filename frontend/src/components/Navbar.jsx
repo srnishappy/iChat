@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { LogOut, MessageSquare, Settings, User } from 'lucide-react';
+import { LogOut, MessageSquare, Palette, User } from 'lucide-react';
 import { useState } from 'react';
 
 const Navbar = () => {
@@ -28,27 +28,6 @@ const Navbar = () => {
 
           {/* Navigation Items */}
           <div className="flex items-center gap-4">
-            <Link
-              to="/settings"
-              className="relative overflow-hidden btn btn-sm rounded-lg bg-base-200/50 border border-base-300 hover:border-primary/40 shadow-sm hover:shadow transition-all duration-300"
-              onMouseEnter={() => setHoverButton('settings')}
-              onMouseLeave={() => setHoverButton(null)}
-            >
-              <div
-                className={`absolute inset-0 bg-primary/10 transform ${
-                  hoverButton === 'settings' ? 'scale-100' : 'scale-0'
-                } rounded-lg transition-transform duration-300 ease-out`}
-              ></div>
-              <Settings
-                className={`w-4 h-4 transition-all duration-300 ${
-                  hoverButton === 'settings' ? 'text-primary' : ''
-                }`}
-              />
-              <span className="hidden sm:inline font-medium z-10">
-                Settings
-              </span>
-            </Link>
-
             {authUser && (
               <>
                 <Link

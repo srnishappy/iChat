@@ -8,8 +8,8 @@ import {
   Loader2,
   Lock,
   Mail,
-  MessageSquare,
   User,
+  MessageSquare,
 } from 'lucide-react';
 
 const Signup = () => {
@@ -32,7 +32,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <User className="text-error" />,
+        icon: <User className="text-red-500" />,
       });
       return false;
     }
@@ -47,7 +47,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <Mail className="text-error" />,
+        icon: <Mail className="text-red-500" />,
       });
       return false;
     }
@@ -62,7 +62,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <Mail className="text-error" />,
+        icon: <Mail className="text-red-500" />,
       });
       return false;
     }
@@ -77,7 +77,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <Lock className="text-error" />,
+        icon: <Lock className="text-red-500" />,
       });
       return false;
     }
@@ -92,7 +92,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        icon: <Lock className="text-error" />,
+        icon: <Lock className="text-red-500" />,
       });
       return false;
     }
@@ -134,12 +134,12 @@ const Signup = () => {
                 <span className="label-text font-medium">Username</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="size-5 text-base-content/40" />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <User className="size-5 text-gray-600" />
                 </div>
                 <input
                   type="text"
-                  className={`input input-bordered w-full pl-10`}
+                  className="input input-bordered w-full pl-10"
                   placeholder="Enter your username"
                   value={formData.fullName}
                   onChange={(e) =>
@@ -154,12 +154,12 @@ const Signup = () => {
                 <span className="label-text font-medium">Email</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="size-5 text-base-content/40" />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Mail className="size-5 text-gray-600" />
                 </div>
                 <input
                   type="email"
-                  className={`input input-bordered w-full pl-10`}
+                  className="input input-bordered w-full pl-10"
                   placeholder="Enter your email address"
                   value={formData.email}
                   onChange={(e) =>
@@ -174,12 +174,12 @@ const Signup = () => {
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="size-5 text-base-content/40" />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Lock className="size-5 text-gray-600" />
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className={`input input-bordered w-full pl-10`}
+                  className="input input-bordered w-full pl-10 pr-10"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) =>
@@ -188,13 +188,13 @@ const Signup = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="size-5 text-base-content/40" />
+                    <EyeOff className="size-5 text-gray-600" />
                   ) : (
-                    <Eye className="size-5 text-base-content/40" />
+                    <Eye className="size-5 text-gray-600" />
                   )}
                 </button>
               </div>
@@ -230,10 +230,8 @@ const Signup = () => {
       {/* Right Side - Image/Pattern */}
       <div className="hidden lg:flex bg-primary/5 flex-col justify-center items-center p-8">
         <div className="max-w-md mx-auto text-center space-y-8">
-          {/* Illustration or App Preview */}
           <div className="bg-base-100 rounded-2xl shadow-xl p-4 max-w-sm mx-auto">
             <div className="flex flex-col space-y-4">
-              {/* User's Chat */}
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                   <img
@@ -245,7 +243,6 @@ const Signup = () => {
                 <div className="font-medium">srnishappy</div>
               </div>
 
-              {/* Chat bubbles with some interactivity */}
               <div className="flex flex-col space-y-3">
                 <div className="chat chat-start">
                   <div className="chat-bubble bg-base-200">
@@ -266,12 +263,10 @@ const Signup = () => {
             </div>
           </div>
 
-          {/* Feature highlights */}
           <div className="space-y-6 mt-8">
             <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
 
             <div className="grid grid-cols-1 gap-4">
-              {/* User-Friendly Experience */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <User className="size-5 text-primary" />
@@ -284,7 +279,6 @@ const Signup = () => {
                 </div>
               </div>
 
-              {/* Secure Messaging */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <Lock className="size-5 text-primary" />
@@ -297,7 +291,6 @@ const Signup = () => {
                 </div>
               </div>
 
-              {/* Lightning Fast */}
               <div className="flex items-start space-x-3">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <div className="size-5 text-primary flex items-center justify-center font-bold">
