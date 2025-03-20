@@ -12,13 +12,13 @@ import { ToastContainer } from 'react-toastify'; // นำเข้า ToastCont
 import 'react-toastify/dist/ReactToastify.css'; // นำเข้า style ของ react-toastify
 
 const App = () => {
-  const { authUser, checkAuth, isCheckAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckAuth, onlineUsers } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  console.log(authUser);
+  console.log(onlineUsers);
 
   if (isCheckAuth && !authUser)
     return (
