@@ -4,24 +4,25 @@ import User from '../models/user.model.js';
 
 export const getUserSidebar = async (req, res) => {
   try {
-    const loginUserId = req.user._id;
-    const fillterUsers = await User.find({ id: { $ne: loginUserId } }).select(
-      '-password'
-    );
-    res.status(200).json(fillterUsers);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: 'Server Error' });
+    const loggedInUserId = req.user._id;
+    const filteredUsers = await User.find({
+      _id: { $ne: loggedInUserId },
+    }).select('-password');
+
+    res.status(200).json(filteredUsers);
+  } catch (error) {
+    console.error('Error in getUsersForSidebar: ', error.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 export const getMessage = async (req, res) => {
   try {
-    const { id: UserChatId } = req.params;
-    const senderId = req.user._id;
+    const { id: userToChatId } = req.params;
+    const myId = req.user._id;
     const message = await Message.find({
       $or: [
-        { senderId: senderId, receiverId: UserChatId },
-        { senderId: UserChatId, receiverId: senderId },
+        { senderId: myId, receiverId: userToChatId },
+        { senderId: userToChatId, receiverId: myId },
       ],
     });
     res.status(200).json(message);
