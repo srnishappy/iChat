@@ -20,8 +20,9 @@ const ChatContainer = () => {
   const messageEndRef = useRef(null);
 
   useEffect(() => {
-    getMessagers, selectedUser._id;
+    getMessagers(selectedUser._id);
 
+    // subscribe to messages
     subscribeToMessages();
 
     return () => unsubscribeFromMessages();
@@ -33,7 +34,8 @@ const ChatContainer = () => {
   ]);
 
   useEffect(() => {
-    if (messageEndRef.current && messages) {
+    // เลื่อนหน้าจอไปที่ข้อความล่าสุดเมื่อมีการอัปเดตข้อความ
+    if (messageEndRef.current && messages.length) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
@@ -53,15 +55,15 @@ const ChatContainer = () => {
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {messages.map((message, index) => (
           <div
             key={message._id}
             className={`chat ${
               message.senderId === authUser._id ? 'chat-end' : 'chat-start'
             }`}
-            ref={messageEndRef}
+            ref={index === messages.length - 1 ? messageEndRef : null}
           >
-            <div className=" chat-image avatar">
+            <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
                   src={

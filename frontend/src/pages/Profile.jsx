@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
-import { Camera, Mail, User, Calendar, Check, Loader2 } from 'lucide-react';
+import { Camera, Mail, User, Check, Loader2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +20,8 @@ const Profile = () => {
     reader.onload = async () => {
       const base64Image = reader.result;
       setSelectedImg(base64Image);
+
+      // อัปเดตรูปโปรไฟล์ใน store
       await updateProfile({ profilePic: base64Image });
     };
   };
@@ -32,6 +34,7 @@ const Profile = () => {
 
     setIsUpdating(true);
     try {
+      // ส่งคำขอ API สำหรับการอัปเดตชื่อ
       const res = await fetch(
         'http://localhost:5000/api/auth/change-username',
         {
@@ -45,6 +48,8 @@ const Profile = () => {
       const data = await res.json();
       if (res.ok) {
         toast.success('Username updated successfully!');
+
+        // อัปเดตชื่อผู้ใช้ใน store ด้วย
         updateProfile({ fullname: newFullName.trim() });
       } else {
         toast.error(data.message || 'Failed to update username.');
