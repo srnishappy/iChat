@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
-import { Camera, Mail, User, Calendar } from 'lucide-react';
+import { Camera, Mail, User, Calendar, Check, Loader2 } from 'lucide-react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const { authUser, isUpdateProfile, updateProfile } = useAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
+  const [newFullName, setNewFullName] = useState(authUser?.fullname || '');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -20,6 +24,39 @@ const Profile = () => {
     };
   };
 
+  const handleChangeUsername = async () => {
+    if (!newFullName.trim()) {
+      toast.error('Please enter a valid name.');
+      return;
+    }
+
+    setIsUpdating(true);
+    try {
+      const res = await fetch(
+        'http://localhost:5000/api/auth/change-username',
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ fullName: newFullName.trim() }),
+        }
+      );
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success('Username updated successfully!');
+        updateProfile({ fullname: newFullName.trim() });
+      } else {
+        toast.error(data.message || 'Failed to update username.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Something went wrong.');
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 pt-20 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-2xl mx-auto p-4 py-8">
@@ -33,7 +70,7 @@ const Profile = () => {
             </p>
           </div>
 
-          {/* Avatar upload section */}
+          {/* Avatar Upload */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
@@ -43,13 +80,9 @@ const Profile = () => {
               />
               <label
                 htmlFor="avatar-upload"
-                className={`
-                  absolute bottom-0 right-0 
-                  bg-blue-500 hover:bg-blue-600 hover:scale-105
-                  p-2 rounded-full cursor-pointer 
-                  transition-all duration-200 shadow-lg
-                  ${isUpdateProfile ? 'animate-pulse pointer-events-none' : ''}
-                `}
+                className={`absolute bottom-0 right-0 bg-blue-500 hover:bg-blue-600 p-2 rounded-full cursor-pointer transition-all duration-200 shadow-lg ${
+                  isUpdateProfile ? 'animate-pulse pointer-events-none' : ''
+                }`}
               >
                 <Camera className="w-5 h-5 text-white" />
                 <input
@@ -69,43 +102,46 @@ const Profile = () => {
             </p>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-1.5">
-              <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                <User className="w-4 h-4" />
-                Username
-              </div>
-              <p className="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 font-medium">
-                {authUser?.fullname}
-              </p>
+          {/* Change Username */}
+          <div className="space-y-1.5">
+            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+              <User className="w-4 h-4" />
+              Username
             </div>
-
-            <div className="space-y-1.5">
-              <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                Email
-              </div>
-              <p className="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 font-medium">
-                {authUser?.email}
-              </p>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                className="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 font-medium w-full"
+                value={newFullName}
+                onChange={(e) => setNewFullName(e.target.value)}
+                disabled={isUpdating}
+              />
+              <button
+                className="bg-zinc-800 text-white px-4 py-2 rounded-lg flex items-center gap-2 
+            hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600 
+            transition-all duration-200 disabled:opacity-50"
+                onClick={handleChangeUsername}
+                disabled={isUpdating}
+              >
+                {isUpdating ? (
+                  <Loader2 className="animate-spin w-5 h-5" />
+                ) : (
+                  <Check className="w-5 h-5" />
+                )}
+                Confirm
+              </button>
             </div>
           </div>
 
-          <div className="mt-6 bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
-            <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-4">
-              Account Details
-            </h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-600">
-                <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                  <Calendar className="w-4 h-4" />
-                  Joined
-                </span>
-                <span className="text-gray-800 dark:text-white font-medium">
-                  {authUser.createdAt?.split('T')[0]}
-                </span>
-              </div>
+          {/* Email Display */}
+          <div className="space-y-1.5">
+            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              Email
             </div>
+            <p className="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 font-medium">
+              {authUser?.email}
+            </p>
           </div>
         </div>
       </div>

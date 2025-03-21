@@ -1,17 +1,31 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { LogOut, MessageSquare, Palette, User } from 'lucide-react';
-import { useState } from 'react';
+import { LogOut, MessageSquare, User } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
   const [hoverButton, setHoverButton] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 backdrop-blur-lg bg-opacity-80">
+    <header
+      className={`fixed w-full top-0 z-40 backdrop-blur-lg bg-base-100 bg-opacity-90
+      transition-all duration-300 ${
+        isScrolled ? 'shadow-md' : 'shadow-sm'
+      } border-b border-base-300`}
+    >
       <div className="container mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
-          {/* Logo and Brand */}
           <div className="flex items-center gap-8">
             <Link
               to="/"
@@ -26,13 +40,25 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation Items */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {authUser && (
               <>
+                <div className="flex items-center mr-1">
+                  <div className="size-8 rounded-full overflow-hidden border-2 border-base-100 shadow-sm">
+                    <img
+                      src={authUser.profilePic || '/avatar.png'}
+                      alt={authUser.fullname}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="ml-2 font-medium text-base-content hidden md:block">
+                    {authUser.fullname}
+                  </span>
+                </div>
+
                 <Link
                   to="/profile"
-                  className="relative overflow-hidden btn btn-sm rounded-lg bg-base-200/50 border border-base-300 hover:border-primary/40 shadow-sm hover:shadow transition-all duration-300"
+                  className="relative overflow-hidden btn btn-sm rounded-lg bg-base-200/50 border border-base-300 hover:border-primary/40 shadow-sm hover:shadow transition-all duration-300 flex items-center gap-2"
                   onMouseEnter={() => setHoverButton('profile')}
                   onMouseLeave={() => setHoverButton(null)}
                 >
@@ -53,7 +79,7 @@ const Navbar = () => {
 
                 <button
                   onClick={logout}
-                  className="relative overflow-hidden btn btn-sm rounded-lg bg-base-200/50 border border-base-300 hover:border-error/40 shadow-sm hover:shadow transition-all duration-300"
+                  className="relative overflow-hidden btn btn-sm rounded-lg bg-base-200/50 border border-base-300 hover:border-error/40 shadow-sm hover:shadow transition-all duration-300 flex items-center gap-2"
                   aria-label="Logout"
                   onMouseEnter={() => setHoverButton('logout')}
                   onMouseLeave={() => setHoverButton(null)}
