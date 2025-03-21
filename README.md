@@ -70,7 +70,7 @@ To start the application, run:
 npm start
 ```
 
-This will start the server on the port specified in your `.env` file (default: 5001).
+This will start the server on the port specified in your `.env` file (default: 5000).
 
 For development with hot-reloading, you may want to use:
 
