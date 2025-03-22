@@ -10,7 +10,6 @@ import {
   MessageSquare,
   User,
 } from 'lucide-react';
-import { Loader } from 'lucide-react';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,36 +43,30 @@ const Login = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
-              <label className="label">
+              <label className="label flex items-center gap-2">
+                <Mail className="h-5 w-5 text-base-content/40" />
                 <span className="label-text font-medium">Email</span>
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-base-content/40" />
-                </div>
-                <input
-                  type="email"
-                  className={`input input-bordered w-full pl-10`}
-                  placeholder="Enter your email address"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </div>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="Enter your email address"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
             </div>
 
             <div className="form-control">
-              <label className="label">
+              <label className="label flex items-center gap-2">
+                <Lock className="h-5 w-5 text-base-content/40" />
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-base-content/40" />
-                </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className={`input input-bordered w-full pl-10`}
+                  className="input input-bordered w-full"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) =>
@@ -155,54 +148,6 @@ const Login = () => {
                   <div className="chat-bubble bg-base-200">
                     It's awesome, right? So easy to use and very well designed!
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Feature highlights */}
-          <div className="space-y-6 mt-8">
-            <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
-
-            <div className="grid grid-cols-1 gap-4">
-              {/* User-Friendly Experience */}
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-lg">
-                  <User className="size-5 text-primary" />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-medium">User-Friendly Experience</h3>
-                  <p className="text-sm text-base-content/70">
-                    Intuitive interface designed for smooth conversations.
-                  </p>
-                </div>
-              </div>
-
-              {/* Secure Messaging */}
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-lg">
-                  <Lock className="size-5 text-primary" />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-medium">Secure Messaging</h3>
-                  <p className="text-sm text-base-content/70">
-                    End-to-end encryption keeps your chats private.
-                  </p>
-                </div>
-              </div>
-
-              {/* Lightning Fast */}
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-lg">
-                  <div className="size-5 text-primary flex items-center justify-center font-bold">
-                    ⚡
-                  </div>
-                </div>
-                <div className="text-left">
-                  <h3 className="font-medium">Lightning Fast</h3>
-                  <p className="text-sm text-base-content/70">
-                    Instant message delivery and syncing across devices.
-                  </p>
                 </div>
               </div>
             </div>
