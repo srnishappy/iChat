@@ -117,7 +117,7 @@ const Login = () => {
       {/* Right Side - Image/Pattern/Chatify App Info */}
       <div className="hidden lg:flex bg-primary/5 flex-col justify-center items-center p-8">
         <div className="max-w-md mx-auto text-center space-y-8">
-          {/* Illustration or App Preview */}
+          {/* Chat Preview */}
           <div className="bg-base-100 rounded-2xl shadow-xl p-4 max-w-sm mx-auto">
             <div className="flex flex-col space-y-4">
               {/* User's Chat */}
@@ -132,7 +132,7 @@ const Login = () => {
                 <div className="font-medium">srnishappy</div>
               </div>
 
-              {/* Chat bubbles with some interactivity */}
+              {/* Chat bubbles */}
               <div className="flex flex-col space-y-3">
                 <div className="chat chat-start">
                   <div className="chat-bubble bg-base-200">
@@ -149,43 +149,44 @@ const Login = () => {
                     It's awesome, right? So easy to use and very well designed!
                   </div>
                 </div>
-                {/* Feature Highlights */}
-                <div className="space-y-6 mt-8">
-                  <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
-                  <div className="grid grid-cols-1 gap-4">
-                    {[
-                      {
-                        title: 'User-Friendly Experience',
-                        icon: <User className="size-5 text-primary" />,
-                      },
-                      {
-                        title: 'Secure Messaging',
-                        icon: <Lock className="size-5 text-primary" />,
-                      },
-                      {
-                        title: 'Lightning Fast',
-                        icon: <div className="size-5 text-primary">⚡</div>,
-                      },
-                    ].map((feature, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="bg-primary/10 p-2 rounded-lg">
-                          {feature.icon}
-                        </div>
-                        <div className="text-left">
-                          <h3 className="font-medium">{feature.title}</h3>
-                          <p className="text-sm text-gray-500">
-                            {feature.title === 'User-Friendly Experience'
-                              ? 'Intuitive interface designed for smooth conversations.'
-                              : feature.title === 'Secure Messaging'
-                              ? 'End-to-end encryption keeps your chats private.'
-                              : 'Instant message delivery and syncing across devices.'}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Feature Highlights */}
+          <div className="space-y-6 mt-8">
+            <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
+            <div className="grid grid-cols-1 gap-4">
+              {[
+                {
+                  title: 'User-Friendly Experience',
+                  icon: <User className="size-5 text-primary" />,
+                },
+                {
+                  title: 'Secure Messaging',
+                  icon: <Lock className="size-5 text-primary" />,
+                },
+                {
+                  title: 'Lightning Fast',
+                  icon: <div className="size-5 text-primary">⚡</div>,
+                },
+              ].map((feature, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    {feature.icon}
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-medium">{feature.title}</h3>
+                    <p className="text-sm text-gray-500">
+                      {feature.title === 'User-Friendly Experience'
+                        ? 'Intuitive interface designed for smooth conversations.'
+                        : feature.title === 'Secure Messaging'
+                        ? 'End-to-end encryption keeps your chats private.'
+                        : 'Instant message delivery and syncing across devices.'}
+                    </p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
