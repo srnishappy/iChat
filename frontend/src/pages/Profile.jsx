@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/useAuthStore';
 import { Camera, Mail, User, Check, Loader2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { axiosInstance } from '../lib/axios';
 const Profile = () => {
   const { authUser, isUpdateProfile, updateProfile } = useAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
@@ -35,28 +35,21 @@ const Profile = () => {
     setIsUpdating(true);
     try {
       // ส่งคำขอ API สำหรับการอัปเดตชื่อ
-      const res = await fetch(
-        'http://localhost:5000/api/auth/change-username',
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ fullName: newFullName.trim() }),
-        }
-      );
+      const res = await axiosInstance.put('/auth/change-username', {
+        fullName: newFullName.trim(),
+      });
 
-      const data = await res.json();
-      if (res.ok) {
+      if (res.status === 200) {
         toast.success('Username updated successfully!');
 
         // อัปเดตชื่อผู้ใช้ใน store ด้วย
         updateProfile({ fullname: newFullName.trim() });
       } else {
-        toast.error(data.message || 'Failed to update username.');
+        toast.error(res.data.message || 'Failed to update username.');
       }
     } catch (error) {
       console.error('Error:', error);
-      toast.error('Something went wrong.');
+      toast.error(error.response?.data?.msg || 'Something went wrong.');
     } finally {
       setIsUpdating(false);
     }

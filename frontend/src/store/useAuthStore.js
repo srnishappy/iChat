@@ -116,13 +116,14 @@ export const useAuthStore = create((set, get) => ({
   updateUsername: async (newFullName) => {
     set({ isUpdateProfile: true });
     try {
-      const res = await axiosInstance.put('/auth/update-username', {
-        fullName: newFullName,
+      const res = await axiosInstance.put('/auth/change-username', {
+        fullName: newFullName.trim(),
       });
-      set({ authUser: res.data }); // Update authUser with new name
+
+      set({ authUser: res.data }); // อัปเดต authUser ใน Zustand
       toast.success('Username updated successfully!');
     } catch (error) {
-      toast.error(error.response.data.msg || 'Failed to update username.');
+      toast.error(error.response?.data?.msg || 'Failed to update username.');
     } finally {
       set({ isUpdateProfile: false });
     }
