@@ -35,7 +35,7 @@ const Navbar = () => {
                 <MessageSquare className="w-5 h-5 text-primary group-hover:animate-pulse" />
               </div>
               <h1 className="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Chatify
+                iChat
               </h1>
             </Link>
           </div>

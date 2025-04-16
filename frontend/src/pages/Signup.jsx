@@ -57,7 +57,7 @@ const Signup = () => {
                 <MessageSquare className="size-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold">Create Account</h1>
-              <p className="text-gray-500">Let's get started with Chatify</p>
+              <p className="text-gray-500">Let's get started with iChat</p>
             </div>
           </div>
 
@@ -135,7 +135,7 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Right Side - Chat Preview and Chatify Info */}
+      {/* Right Side - Chat Preview and iChat Info */}
       <div className="hidden lg:flex bg-primary/5 flex-col justify-center items-center p-8">
         <div className="max-w-md mx-auto text-center space-y-8">
           {/* Chat Preview */}
@@ -176,7 +176,7 @@ const Signup = () => {
 
           {/* Feature Highlights */}
           <div className="space-y-6 mt-8">
-            <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
+            <h2 className="text-2xl font-bold">Why Choose iChat?</h2>
             <div className="grid grid-cols-1 gap-4">
               {[
                 {

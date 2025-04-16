@@ -35,7 +35,7 @@ const Login = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <MessageSquare className="w-6 h-6 text-primary" />
               </div>
-              <h1 className="text-2xl font-bold mt-2">Welcome to Chatify </h1>
+              <h1 className="text-2xl font-bold mt-2">Welcome to iChat </h1>
               <p className="text-base-content/60">Login and let's chat!</p>
             </div>
           </div>
@@ -114,7 +114,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Side - Image/Pattern/Chatify App Info */}
+      {/* Right Side - Image/Pattern/iChat App Info */}
       <div className="hidden lg:flex bg-primary/5 flex-col justify-center items-center p-8">
         <div className="max-w-md mx-auto text-center space-y-8">
           {/* Chat Preview */}
@@ -155,7 +155,7 @@ const Login = () => {
 
           {/* Feature Highlights */}
           <div className="space-y-6 mt-8">
-            <h2 className="text-2xl font-bold">Why Choose Chatify?</h2>
+            <h2 className="text-2xl font-bold">Why Choose iChat?</h2>
             <div className="grid grid-cols-1 gap-4">
               {[
                 {
